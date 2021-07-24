@@ -97,6 +97,12 @@ io.on("connection",(socket)=>{
 
 const host = '0.0.0.0';
 
+app.get("/",(req,res)=>{
+       res.send("welcome to my server");
+})
+
+
+
 
 server.listen(PORT,host,()=>{console.log(`we listening at ${PORT}`)});
 
