@@ -95,6 +95,7 @@ io.on("connection",(socket)=>{
     })
 })
 
+const host = '0.0.0.0';
 
 
 app.use("/",router);
@@ -102,5 +103,5 @@ app.use("/",router);
 router.get("/",(req,res)=>{
        res.status(200).send("hello and welcome to my server")
 })
-server.listen(PORT,()=>{console.log(`we listening at ${PORT}`)});
+server.listen(PORT,host,()=>{console.log(`we listening at ${PORT}`)});
 
