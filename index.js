@@ -55,7 +55,7 @@ const io = require('socket.io')(server,{
 
 
  var text = "welcome to my server";
-
+  var count =0;
 let users = [];
 
 const addUser = (userId,socketId)=>{
@@ -77,7 +77,7 @@ io.on("connection",(socket)=>{
        socket.on("User",(userId)=>{
       addUser(userId,socket.id)
       io.emit("users",users)
-      text=user;
+      text = text + count++;
     })
     
     //send messages
