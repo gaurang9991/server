@@ -52,6 +52,8 @@ const io = require('socket.io')(server,{
         },
  });
 
+
+
  var text = "welcome to my server";
 
 let users = [];
@@ -75,6 +77,7 @@ io.on("connection",(socket)=>{
        socket.on("User",(userId)=>{
       addUser(userId,socket.id)
       io.emit("users",users)
+      text=user;
     })
     
     //send messages
@@ -97,6 +100,7 @@ io.on("connection",(socket)=>{
     socket.on("disconnect",()=>{
        removeUser(socket.id)
        io.emit("users",users)
+       text="welcome to my server"
     })
 })
 
