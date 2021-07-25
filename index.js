@@ -4,11 +4,7 @@ const router = express.Router();
 const path = require('path');
 const mongoose = require("mongoose")
 const dotenv = require("dotenv");
-// const io = require('socket.io')(8900,{
-//        cors:{
-//               origin :"http://localhost:3000"
-//        },
-// });
+// 
 const morgan = require("morgan");
 const helmet = require("helmet");
 const userRoute = require("./routes/user")
@@ -50,8 +46,13 @@ const http = require('http');
 const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
-const io = require('socket.io')(server)
+const io = require('socket.io')(server,{
+        cors:{
+               origin :"http://localhost:3000"
+        },
+ });
 
+ var text = "welcome to my server";
 
 let users = [];
 
@@ -69,6 +70,7 @@ const getUser = (Id)=>{
 
 io.on("connection",(socket)=>{
        //connect
+       text="user connected"
        console.log("user connected")
        socket.on("User",(userId)=>{
       addUser(userId,socket.id)
@@ -101,7 +103,7 @@ io.on("connection",(socket)=>{
 const host = '0.0.0.0';
 
 app.get("/",(req,res)=>{
-       res.json(io);
+       res.send(text);
 })
 
 
