@@ -101,7 +101,7 @@ io.on("connection",(socket)=>{
 const host = '0.0.0.0';
 
 app.get("/",(req,res)=>{
-       res.send("welcome to my server");
+       res.json(io);
 })
 
 
