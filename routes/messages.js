@@ -2,7 +2,7 @@ const express = require('express');
 const { models, model } = require('mongoose');
 const router = express.Router();
 
-const Message =  require("../models/Message");
+const Message =  require("../models/message");
 
 
 //add message
