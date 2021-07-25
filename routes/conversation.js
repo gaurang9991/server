@@ -9,8 +9,17 @@ router.post("/:username",async (req,res)=>{
 
 
  const user =await User.findOne({username : req.params.username});
- console.log(req.body.UserId);
- const id = user._id.toString()
+ if(!user)
+ return res.status(404).send("user not found") 
+
+ console.log(user)
+const id = user._id.toString()
+ var find = await Conversation.findOne({members:[req.body.UserId,id]} || {members:[id,req.body.UserId]})
+ if(find)
+ return res.status(401).send("chat alredy exits") 
+
+ console.log(find)
+   
  const newConversation = new Conversation(
   {members:[req.body.UserId,id],}
   );

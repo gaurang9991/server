@@ -48,7 +48,7 @@ const server = http.createServer(app);
 
 const io = require('socket.io')(server,{
         cors:{
-               origin :"https://sleepy-jepsen-dcb4b3.netlify.app"
+               origin :"https://sleepy-jepsen-dcb4b3.netlify.app/"
         },
  });
 
@@ -73,7 +73,6 @@ const getUser = (Id)=>{
 io.on("connection",(socket)=>{
        //connect
        text="user connected"
-       console.log("user connected")
        socket.on("User",(userId)=>{
       addUser(userId,socket.id)
       io.emit("users",users)
@@ -93,8 +92,11 @@ io.on("connection",(socket)=>{
        
       })
 
-      
-    
+      //adding new chat
+        socket.on("chat",(data)=>{
+               if(data)
+           io.emit("createchat",data)
+        })
 
     //disconnect
     socket.on("disconnect",()=>{
