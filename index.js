@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require("mongoose")
 const dotenv = require("dotenv");
 // 
+const PORT = process.env.PORT || 5000;
 const morgan = require("morgan");
 const helmet = require("helmet");
 const userRoute = require("./routes/user")
@@ -57,7 +58,6 @@ app.use("/api/message",messageRoute)
 const http = require('http');
 
 
-const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 const io = require('socket.io')(server,{
