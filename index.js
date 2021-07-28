@@ -62,7 +62,7 @@ const server = http.createServer(app);
 
 const io = require('socket.io')(server,{
         cors:{
-               origin :"https://sleepy-jepsen-dcb4b3.netlify.app/",
+               origin :"https://sleepy-jepsen-dcb4b3.netlify.app",
         },
  });
 
