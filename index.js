@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const path = require('path');
+const path = require('path');
 const mongoose = require("mongoose")
 const dotenv = require("dotenv");
 // 
@@ -29,7 +30,21 @@ mongoose
 //middleware
 
 app.use(express.json());
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"], 
+        scriptSrc: ["*","'unsafe-inline'","unsafe-eval"],
+        styleSrc: ["'unsafe-inline'","'self'"],
+        imgSrc: ["*", 'data:'],
+        connectSrc: ["'self'",`http://localhost:${PORT}/socket.io/`,`https://sleepy-jepsen-dcb4b3.netlify.app/`],
+        frameSrc: ["'self'"],
+        mediaSrc: ["*"],
+      },
+    }
+  })
+);
 app.use(morgan("common"))
 app.use(cors())
 
@@ -113,7 +128,16 @@ app.get("/",(req,res)=>{
 })
 
 
+app.use(express.static(path.join(__dirname, 'build')));
 
+
+app.all('*', function(req, res) {
+  res.redirect("/");
+});
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 server.listen(PORT,host,()=>{console.log(`we listening at ${PORT}`)});
 
